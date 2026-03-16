@@ -25,6 +25,7 @@ class Order(models.Model):
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
+        ordering = ['-created_at']
 
     def __str__(self):
         return f"Pedido #{self.id} - {self.customer_name}"
