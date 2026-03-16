@@ -63,7 +63,7 @@ class OrderViewSetTest(APITestCase):
         self.assertEqual(Order.objects.count(), 0)
 
     def test_adicionar_item_ao_pedido(self):
-        url = reverse('order-add_item', kwargs={'pk': self.order.pk})
+        url = reverse('order-add-item', kwargs={'pk': self.order.pk})
         data = {
             'product': self.product.id,
             'quantity': 2,
@@ -74,13 +74,13 @@ class OrderViewSetTest(APITestCase):
         self.assertEqual(OrderItem.objects.count(), 1)
 
     def test_atualizar_status_do_pedido(self):
-        url = reverse('order-update_status', kwargs={'pk': self.order.pk})
+        url = reverse('order-update-status', kwargs={'pk': self.order.pk})
         response = self.client.patch(url, {'status': 'shipped'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.order.refresh_from_db()
         self.assertEqual(self.order.status, 'shipped')
 
     def test_status_invalido_retorna_erro(self):
-        url = reverse('order-update_status', kwargs={'pk': self.order.pk})
+        url = reverse('order-update-status', kwargs={'pk': self.order.pk})
         response = self.client.patch(url, {'status': 'invalido'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
